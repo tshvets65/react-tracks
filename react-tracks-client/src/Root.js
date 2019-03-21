@@ -6,13 +6,17 @@ import withRoot from "./withRoot";
 import App from './pages/App'
 import Profile from './pages/Profile'
 import Header from './components/Shared/Header'
+import Loading from './components/Shared/Loading'
+import Error from './components/Shared/Error'
 
 const Root = () => (
     <Query query={ME_QUERY}>
         {({ data, loading, error }) => {
-            if (loading) return <p>Loading...</p>
-            if (error) return <p>Error {error.message}</p>
+            if (loading) return <Loading />
+            if (error) return <Error error={error} />
+
             const currentUser = data.me
+
             return (
                 <BrowserRouter>
                     <>
@@ -27,17 +31,6 @@ const Root = () => (
         }}
     </Query>
 )
-
-const GET_TRACKS_QUERY = gql`
-{
-    tracks {
-        id
-        title
-        description
-        url
-    }
-}
-`
 
 const ME_QUERY = gql`
 {
