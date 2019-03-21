@@ -1,17 +1,42 @@
-import ApolloClient from 'apollo-boost';
 import React from "react";
-import { ApolloProvider } from 'react-apollo';
 import ReactDOM from "react-dom";
+import ApolloClient, { gql } from 'apollo-boost';
+import { ApolloProvider, Query } from 'react-apollo';
 import Auth from './components/Auth';
+import Root from './Root'
 import * as serviceWorker from "./serviceWorker";
 
 const client = new ApolloClient({
-    uri: process.env.REACT_APP_GRAPHQL_URI
+    uri: process.env.REACT_APP_GRAPHQL_URI,
+    fetchOptions: {
+        credentials: 'include'
+    },
+    request: operation => {
+        const token = localStorage.getItem('authToken') || ''
+        operation.setContext({
+            headers: {
+                Authorization: `JWT ${token}`
+            }
+        })
+    },
+    clientState: {
+        defaults: {
+            isLoggedIn: !!localStorage.getItem('authToken')
+        }
+    }
 })
+
+const IS_LOGGED_IN = gql`
+    query {
+        isLoggedIn @client
+    }
+`
 
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <Auth />
+        <Query query={IS_LOGGED_IN}>
+            {({ data }) => data.isLoggedIn ? <Root /> : <Auth />}
+        </Query>
     </ApolloProvider>,
     document.getElementById("root"));
 
