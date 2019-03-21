@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom'
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
@@ -14,37 +14,42 @@ import AudioPlayer from '../Shared/AudioPlayer'
 import LikeTrack from './LikeTrack'
 import DeleteTrack from './DeleteTrack'
 import UpdateTrack from './UpdateTrack'
+import { UserContext } from '../../Root'
 
-const TrackList = ({ classes, tracks }) => (
-  <List>
-    {tracks.map(track => (
-      <ExpansionPanel key={track.id}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <ListItem className={classes.root}>
-            <LikeTrack />
-            <ListItemText
-              primaryTypographyProps={{ variant: 'subheading', color: 'primary' }}
-              primary={track.title}
-              secondary={
-                <Link to={`/profile/${track.postedBy.id}`}>
-                  {track.postedBy.username}
-                </Link>
-              }
-            />
-            <AudioPlayer url={track.url} />
-          </ListItem>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.details}>
-          <Typography variant='body1'>{track.description}</Typography>
-        </ExpansionPanelDetails>
-        <ExpansionPanelActions>
-          <UpdateTrack track={track} />
-          <DeleteTrack track={track} />
-        </ExpansionPanelActions>
-      </ExpansionPanel>
-    ))}
-  </List>
-)
+const TrackList = ({ classes, tracks }) => {
+  const currentUser = useContext(UserContext)
+
+  return (
+    <List>
+      {tracks.map(track => (
+        <ExpansionPanel key={track.id}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <ListItem className={classes.root}>
+              <LikeTrack />
+              <ListItemText
+                primaryTypographyProps={{ variant: 'subheading', color: 'primary' }}
+                primary={track.title}
+                secondary={
+                  <Link to={`/profile/${track.postedBy.id}`}>
+                    {track.postedBy.username}
+                  </Link>
+                }
+              />
+              <AudioPlayer url={track.url} />
+            </ListItem>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={classes.details}>
+            <Typography variant='body1'>{track.description}</Typography>
+          </ExpansionPanelDetails>
+          {currentUser.id === track.postedBy.id && <ExpansionPanelActions>
+            <UpdateTrack track={track} />
+            <DeleteTrack track={track} />
+          </ExpansionPanelActions>}
+        </ExpansionPanel>
+      ))}
+    </List>
+  )
+}
 
 const styles = {
   root: {
