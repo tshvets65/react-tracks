@@ -4,7 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import RadioIcon from "@material-ui/icons/RadioTwoTone";
-import FaceIcon from "@material-ui/icons/FaceTwoTone";
+// import FaceIcon from "@material-ui/icons/FaceTwoTone";
 import Typography from "@material-ui/core/Typography";
 import Signout from '../Auth/Signout'
 
@@ -20,9 +20,8 @@ const Header = ({ classes, currentUser }) => {
         </Link>
         {currentUser && (
           <Link to={`/profile/${currentUser.id}`} className={classes.grow}>
-            <FaceIcon className={classes.faceIcon} />
-            <Typography variant='headline' className={classes.username} noWrap>
-              {currentUser.username}
+            <Typography className={classes.username} noWrap>
+              Logged in as <strong>{currentUser.username}</strong>
             </Typography>
           </Link>
         )}
@@ -55,7 +54,7 @@ const styles = theme => ({
   },
   username: {
     color: "white",
-    fontSize: 30
+    fontSize: 16
   }
 });
 

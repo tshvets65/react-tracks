@@ -6,11 +6,19 @@ import TrashIcon from "@material-ui/icons/DeleteForeverOutlined";
 import { GET_TRACKS_QUERY } from '../../pages/App'
 
 const DeleteTrack = ({ track }) => {
+
+  const handleUpdateCache = (cache, { data: { deleteTrack } }) => {
+    const data = cache.readQuery({ query: GET_TRACKS_QUERY })
+    const tracks = data.tracks.filter(track => track.id !== deleteTrack.trackId.toString())
+    cache.writeQuery({ query: GET_TRACKS_QUERY, data: { tracks } })
+  }
+
   return (
     <Mutation mutation={DELETE_TRACK_MUTATION}
       variables={{ trackId: track.id }}
-      onCompleted={data => console.log(data)}
-      refetchQueries={() => [{ query: GET_TRACKS_QUERY }]}
+      // onCompleted={data => console.log(data)}
+      update={handleUpdateCache}
+    // refetchQueries={() => [{ query: GET_TRACKS_QUERY }]}
     >
       {deleteTrack => (
         <IconButton onClick={deleteTrack}>

@@ -60,9 +60,15 @@ const CreateTrack = ({ classes }) => {
     createTrack({ variables: { title, description, url } })
   }
 
+  const handleUpdateCache = (cache, { data: { createTrack } }) => {
+    const data = cache.readQuery({ query: GET_TRACKS_QUERY })
+    const tracks = data.tracks.concat(createTrack.track)
+    cache.writeQuery({ query: GET_TRACKS_QUERY, data: { tracks } })
+  }
+
   return (
     <>
-      <Button onClick={() => setOpen(true)} variant='fab' className={classes.fab} color={open ? '' : 'secondary'}>
+      <Button onClick={() => setOpen(true)} variant='fab' className={classes.fab} color={open ? 'inherit' : 'secondary'}>
         {open ? <ClearIcon /> : <AddIcon />}
       </Button>
 
@@ -73,7 +79,8 @@ const CreateTrack = ({ classes }) => {
         setDescription('')
         setFile(null)
       }}
-        refetchQueries={() => [{ query: GET_TRACKS_QUERY }]}
+        // refetchQueries={() => [{ query: GET_TRACKS_QUERY }]}
+        update={handleUpdateCache}
       >
         {(createTrack, { loading, error }) => {
           if (error) return <Error error={error} />
@@ -151,6 +158,16 @@ mutation($title: String!, $description: String!, $url: String!) {
   createTrack(title: $title, description: $description, url: $url) {
     track {
       id
+      title
+      description
+      url
+      likes {
+        id
+      }
+      postedBy {
+        id
+        username
+      }
     }
   }
 }

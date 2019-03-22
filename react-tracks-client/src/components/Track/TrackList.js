@@ -29,10 +29,12 @@ const TrackList = ({ classes, tracks }) => {
               <ListItemText
                 primaryTypographyProps={{ variant: 'subheading', color: 'primary' }}
                 primary={track.title}
-                secondary={
-                  <Link to={`/profile/${track.postedBy.id}`}>
+                secondary={<span>
+                  Uploaded by <Link to={`/profile/${track.postedBy.id}`}>
                     {track.postedBy.username}
                   </Link>
+                </span>
+
                 }
               />
               <AudioPlayer url={track.url} />
