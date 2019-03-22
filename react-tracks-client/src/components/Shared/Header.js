@@ -3,20 +3,26 @@ import { Link } from 'react-router-dom'
 import withStyles from "@material-ui/core/styles/withStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import RadioIcon from "@material-ui/icons/RadioTwoTone";
+// import RadioIcon from "@material-ui/icons/RadioTwoTone";
 // import FaceIcon from "@material-ui/icons/FaceTwoTone";
 import Typography from "@material-ui/core/Typography";
+import { unstable_useMediaQuery as useMediaQuery } from "@material-ui/core/useMediaQuery";
+import Logo from '../../assets/images/Music.png'
+
 import Signout from '../Auth/Signout'
 
 const Header = ({ classes, currentUser }) => {
+  const mombileSize = useMediaQuery('(max-width: 650px)')
+
   return (
     <AppBar position='static' className={classes.root}>
       <Toolbar>
         <Link to='/' className={classes.grow}>
-          <RadioIcon className={classes.logo} color='secondary' />
-          <Typography variant='headline' color='secondary' noWrap>
+          {/* <RadioIcon className={classes.logo} color='secondary' /> */}
+          <img src={Logo} style={{ width: '40px', marginRight: '10px' }} />
+          <Typography variant='headline' color='secondary' noWrap className={mombileSize ? classes.mobile : ''}>
             ReactTracks
-      </Typography>
+          </Typography>
         </Link>
         {currentUser && (
           <Link to={`/profile/${currentUser.id}`} className={classes.grow}>
@@ -27,7 +33,7 @@ const Header = ({ classes, currentUser }) => {
         )}
         <Signout />
       </Toolbar>
-    </AppBar>
+    </AppBar >
   )
 };
 
@@ -55,6 +61,9 @@ const styles = theme => ({
   username: {
     color: "white",
     fontSize: 16
+  },
+  mobile: {
+    display: "none"
   }
 });
 

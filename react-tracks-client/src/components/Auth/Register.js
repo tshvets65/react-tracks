@@ -67,7 +67,7 @@ const Register = ({ classes, setNewUser }) => {
                 <Button type='submit' disabled={loading || !username.trim() || !password.trim() || !email.trim()} fullWidth variant='contained' color='secondary' className={classes.submit}>
                   {loading ? 'Registering...' : 'Register'}
                 </Button>
-                <Button onClick={() => setNewUser(false)} fullWidth variant='outlined' color='primary'>Previous user? Log in here</Button>
+                <Button onClick={() => setNewUser(false)} fullWidth variant='outlined' color='primary'>Existing user? Log in here</Button>
 
                 {error && <Error error={error} />}
               </form>

@@ -9,14 +9,13 @@ const DeleteTrack = ({ track }) => {
 
   const handleUpdateCache = (cache, { data: { deleteTrack } }) => {
     const data = cache.readQuery({ query: GET_TRACKS_QUERY })
-    const tracks = data.tracks.filter(track => track.id !== deleteTrack.trackId.toString())
+    const tracks = data.tracks.filter(track => Number(track.id) !== deleteTrack.trackId)
     cache.writeQuery({ query: GET_TRACKS_QUERY, data: { tracks } })
   }
 
   return (
     <Mutation mutation={DELETE_TRACK_MUTATION}
       variables={{ trackId: track.id }}
-      // onCompleted={data => console.log(data)}
       update={handleUpdateCache}
     // refetchQueries={() => [{ query: GET_TRACKS_QUERY }]}
     >

@@ -15,9 +15,11 @@ import LikeTrack from './LikeTrack'
 import DeleteTrack from './DeleteTrack'
 import UpdateTrack from './UpdateTrack'
 import { UserContext } from '../../Root'
+import { unstable_useMediaQuery as useMediaQuery } from "@material-ui/core/useMediaQuery";
 
 const TrackList = ({ classes, tracks }) => {
   const currentUser = useContext(UserContext)
+  const mombileSize = useMediaQuery('(max-width: 650px)')
 
   return (
     <List>
@@ -34,10 +36,9 @@ const TrackList = ({ classes, tracks }) => {
                     {track.postedBy.username}
                   </Link>
                 </span>
-
                 }
               />
-              <AudioPlayer url={track.url} />
+              <AudioPlayer url={track.url} mombileSize={mombileSize} />
             </ListItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
