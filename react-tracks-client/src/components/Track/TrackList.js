@@ -29,7 +29,7 @@ const TrackList = ({ classes, tracks }) => {
             <ListItem className={classes.root}>
               <LikeTrack trackId={track.id} likeCount={track.likes.length} />
               <ListItemText
-                primaryTypographyProps={{ variant: 'subheading', color: 'primary' }}
+                primaryTypographyProps={{ variant: 'subtitle1', color: 'primary' }}
                 primary={track.title}
                 secondary={<span>
                   Uploaded by <Link to={`/profile/${track.postedBy.id}`}>
@@ -42,7 +42,7 @@ const TrackList = ({ classes, tracks }) => {
             </ListItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
-            <Typography variant='body1'>{track.description}</Typography>
+            <Typography variant='body2'>{track.description}</Typography>
           </ExpansionPanelDetails>
           {currentUser.id === track.postedBy.id && <ExpansionPanelActions>
             <UpdateTrack track={track} />

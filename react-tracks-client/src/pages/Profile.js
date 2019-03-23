@@ -35,7 +35,7 @@ const Profile = ({ classes, match }) => {
             </Card>
 
             <Paper elevation={1} className={classes.paper}>
-              <Typography variant='title' className={classes.title}>
+              <Typography variant='h6' className={classes.title}>
                 <AudiotrackIcon className={classes.audioIcon} />
                 Posted Tracks
               </Typography>
@@ -51,7 +51,7 @@ const Profile = ({ classes, match }) => {
             </Paper>
 
             <Paper elevation={1} className={classes.paper}>
-              <Typography variant='title' className={classes.title}>
+              <Typography variant='h6' className={classes.title}>
                 <ThumbUpIcon className={classes.thumbIcon} />
                 Liked Tracks
               </Typography>

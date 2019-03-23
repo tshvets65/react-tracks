@@ -15,6 +15,7 @@ import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
+import Fab from '@material-ui/core/Fab';
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import Error from '../Shared/Error'
 import { GET_TRACKS_QUERY } from '../../pages/App'
@@ -68,9 +69,9 @@ const CreateTrack = ({ classes }) => {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} variant='fab' className={classes.fab} color={open ? 'inherit' : 'secondary'}>
+      <Fab onClick={() => setOpen(true)} className={classes.fab} color={open ? 'inherit' : 'secondary'}>
         {open ? <ClearIcon /> : <AddIcon />}
-      </Button>
+      </Fab>
 
       <Mutation mutation={CREATE_TRACK_MUTATION} onCompleted={() => {
         setOpen(false)

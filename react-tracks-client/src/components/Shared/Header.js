@@ -19,8 +19,8 @@ const Header = ({ classes, currentUser }) => {
       <Toolbar>
         <Link to='/' className={classes.grow}>
           {/* <RadioIcon className={classes.logo} color='secondary' /> */}
-          <img src={Logo} style={{ width: '40px', marginRight: '10px' }} />
-          <Typography variant='headline' color='secondary' noWrap className={mombileSize ? classes.mobile : ''}>
+          <img src={Logo} style={{ width: '40px', marginRight: '10px' }} alt='Logo' />
+          <Typography variant='h5' color='secondary' noWrap className={mombileSize ? classes.mobile : ''}>
             ReactTracks
           </Typography>
         </Link>
